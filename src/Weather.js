@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FormatDate from "./FormatDate";
 import axios from "axios";
 import "./Weather.css";
 
@@ -6,16 +7,17 @@ export default function Weather(props) {
   const [weatherData, setWeatherData] = useState({ ready: false });
 
   function handleResponse(response) {
-    console.log(response.data);
+    console.log(response.data.time);
     setWeatherData({
       ready: true,
-      temperature: response.data.main.temp,
-      humidity: response.data.main.humidity,
-      description: response.data.weather[0].description,
-      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
-      city: response.data.name,
-      date: "Wednesday 07:00",
+      temperature: response.data.temperature.current,
       wind: response.data.wind.speed,
+      city: response.data.city,
+      date: new Date(response.data.time * 1000),
+      humidity: response.data.temperature.humidity,
+      description: response.data.condition.description,
+      iconUrl:
+        "https://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png",
     });
   }
   if (weatherData.ready) {
@@ -35,14 +37,16 @@ export default function Weather(props) {
               <input
                 type="submit"
                 value="Search"
-                classname="btn btn-primary w-100"
+                className="btn btn-primary w-100"
               />
             </div>
           </div>
         </form>
         <h1>{weatherData.city}</h1>
         <ul>
-          <li>{weatherData.date}</li>
+          <li>
+            <FormatDate date={weatherData.date} />
+          </li>
           <li className="text-capitalize">{weatherData.description}</li>
         </ul>
         <div className="row mt-3">
@@ -57,7 +61,6 @@ export default function Weather(props) {
           </div>
           <div className="col-6">
             <ul>
-              <li>Precipitation</li>
               <li>Humidity: {weatherData.humidity}%</li>
               <li>Wind: {weatherData.wind}km/h</li>
             </ul>
@@ -67,8 +70,7 @@ export default function Weather(props) {
     );
   } else {
     let apiKey = "494f3181eb1oe9bfae0t4f2214913d5b";
-    let city = "London";
-    let apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=metric`;
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${props.defaultCity}&key=${apiKey}`;
     axios.get(apiUrl).then(handleResponse);
 
     return "Loading...";

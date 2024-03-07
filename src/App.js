@@ -5,7 +5,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>Weather Search Engine</h1>
-      <Weather defaultCity="New York" />
+      <Weather defaultCity="Boston" />
       <footer>
         <a href="https://github.com/emijsho/sc-react-weather">
           Open Source Code
