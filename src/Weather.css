@@ -2,8 +2,6 @@
   border: 1px solid #dadde1;
   font-family: Arial, Helvetica, sans-serif;
   padding: 16px;
-  margin: 30px auto;
-  max-width: 600px;
   border-radius: 4px;
   color: rgb(135, 135, 135);
 }
@@ -32,7 +30,7 @@
 .Weather img {
   height: 64px;
   width: 64px;
-  margin-right: 10px;
+  margin: 0 0 30px 10px;
   display: inline-block;
 }
 .Weather .temperature {
