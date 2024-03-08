@@ -8,7 +8,7 @@ export default function Weather(props) {
   const [city, setCity] = useState(props.defaultCity);
 
   function handleResponse(response) {
-    console.log(response.data.time);
+    console.log(response.data);
     setWeatherData({
       ready: true,
       temperature: response.data.temperature.current,
@@ -17,14 +17,13 @@ export default function Weather(props) {
       date: new Date(response.data.time * 1000),
       humidity: response.data.temperature.humidity,
       description: response.data.condition.description,
-      iconUrl:
-        "https://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png",
+      iconUrl: `${response.data.condition.icon_url}`,
     });
   }
 
   function search() {
     let apiKey = "494f3181eb1oe9bfae0t4f2214913d5b";
-    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
   }
   function handleSubmit(event) {
