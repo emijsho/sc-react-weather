@@ -5,7 +5,11 @@
   border-radius: 4px;
   color: rgb(135, 135, 135);
 }
-
+.Weather .btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid rgb(135, 135, 135);
+}
 .Weather form {
   margin-bottom: 20px;
 }
@@ -14,6 +18,7 @@
   font-weight: 100;
   margin: 20px 0 0 0;
   line-height: 29px;
+  color: #000000;
 }
 
 .Weather ul {
@@ -49,4 +54,8 @@
   line-height: 1;
   top: -34px;
   margin-left: 5px;
+}
+
+.Weather strong {
+  color: #000000;
 }
